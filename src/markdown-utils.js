@@ -1,6 +1,6 @@
 // @ts-check
 const { parse } = require('@textlint/markdown-to-ast')
-const debug = require('debug')('@cypress/fiddle')
+const debug = require('debug')('@bahmutov/cypress-fiddle')
 
 /**
  * Finds optional fiddle name from the comment line

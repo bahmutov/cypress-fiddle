@@ -2,3 +2,4 @@ node_modules/
 cypress/videos
 cypress/screenshots
 cypress/integration/text.js
+cypress/integration/add-list-item.js

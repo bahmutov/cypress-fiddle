@@ -1,10 +1,10 @@
 // @ts-check
 const { source } = require('common-tags')
-const debug = require('debug')('@cypress/fiddle')
+const debug = require('debug')('@bahmutov/cypress-fiddle')
 
-const isTestObject = o => o.test
+const isTestObject = (o) => o.test
 
-function generateTest (name, maybeTest) {
+function generateTest(name, maybeTest) {
   if (typeof name !== 'string') {
     console.error(maybeTest)
     throw new Error('Test has no name ' + name)
@@ -28,18 +28,20 @@ function generateTest (name, maybeTest) {
  * Processes a tree of test definitions, each with HTML and JS
  * and returns generated spec file source
  */
-function generateSpecWorker (maybeTest, options) {
+function generateSpecWorker(maybeTest, options) {
   let start = ''
 
   if (options.beforeHooksAtDepth === options.depth) {
-    if (options.before ) {
-      start = source`
+    if (options.before) {
+      start =
+        source`
         before(() => {
           cy.visit('${options.before}')
         })
       ` + '\n\n'
     } else if (options.beforeEach) {
-      start = source`
+      start =
+        source`
         beforeEach(() => {
           cy.visit('${options.before}')
         })
@@ -54,13 +56,13 @@ function generateSpecWorker (maybeTest, options) {
 
   if (Array.isArray(maybeTest)) {
     // console.log('list of tests')
-    const sources = maybeTest.map(test => {
+    const sources = maybeTest.map((test) => {
       if (isTestObject(test)) {
         return generateTest(test.name, test)
       } else {
         const nextCallOptions = {
           ...options,
-          depth: options.depth + 1
+          depth: options.depth + 1,
         }
         return generateSpecWorker(test, nextCallOptions)
       }
@@ -85,7 +87,7 @@ function generateSpecWorker (maybeTest, options) {
 
     const nextCallOptions = {
       ...options,
-      depth: options.depth + 1
+      depth: options.depth + 1,
     }
 
     // final choice - create nested suite of tests
@@ -103,11 +105,12 @@ function generateSpecWorker (maybeTest, options) {
 function generateSpec(maybeTest, options = {}) {
   const opts = {
     ...options,
-    depth: 0
+    depth: 0,
   }
 
   const specSource = generateSpecWorker(maybeTest, opts)
-  const preamble = source`
+  const preamble =
+    source`
     /// <reference types="cypress" />
   ` + '\n'
   return preamble + specSource

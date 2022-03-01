@@ -4,7 +4,7 @@ const path = require('path')
 const { source } = require('common-tags')
 const tempWrite = require('temp-write')
 const cyBrowserify = require('@cypress/browserify-preprocessor')()
-const debug = require('debug')('@cypress/fiddle')
+const debug = require('debug')('@bahmutov/cypress-fiddle')
 const mdUtils = require('./markdown-utils')
 
 const testExamplesPath = path.join(__dirname, '.')
@@ -21,7 +21,7 @@ const testExamplesPath = path.join(__dirname, '.')
   }
   ```
 */
-const mdPreprocessor = file => {
+const mdPreprocessor = (file) => {
   const { filePath, outputPath, shouldWatch } = file
 
   if (filePath.endsWith('.js') || filePath.endsWith('.coffee')) {
@@ -45,7 +45,7 @@ const mdPreprocessor = file => {
   // console.log(specSource)
   const writtenTempFilename = tempWrite.sync(
     specSource,
-    path.basename(filePath) + '.js'
+    path.basename(filePath) + '.js',
   )
   debug('wrote temp file', writtenTempFilename)
 
@@ -54,7 +54,7 @@ const mdPreprocessor = file => {
     outputPath,
     // since the file is generated once, no need to watch it
     shouldWatch: false,
-    on: file.on
+    on: file.on,
   })
 }
 
