@@ -1,0 +1,7 @@
+{
+  "testFiles": "**/*.js",
+  "ignoreTestFiles": [
+    "examples.js",
+    "*-examples.js"
+  ]
+}
