@@ -11,9 +11,6 @@ jobs:
         # https://github.com/cypress-io/github-action
         uses: cypress-io/github-action@v2
 
-      - name: Run Markdown tests
-        run: npx cypress-expect run --config-file cypress-markdown.json --min-passing 26
-
       - name: Semantic Release 🚀
         uses: cycjimmy/semantic-release-action@v2
         with:

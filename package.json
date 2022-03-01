@@ -48,5 +48,8 @@
   "bugs": {
     "url": "https://github.com/bahmutov/cypress-fiddle/issues"
   },
-  "homepage": "https://github.com/bahmutov/cypress-fiddle#readme"
+  "homepage": "https://github.com/bahmutov/cypress-fiddle#readme",
+  "publishConfig": {
+    "access": "public"
+  }
 }
