@@ -1,4 +1,4 @@
-# @bahmutov/cypress-fiddle [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-9.4.1-brightgreen)
+# @bahmutov/cypress-fiddle [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-9.4.1-brightgreen) [![ci](https://github.com/bahmutov/cypress-fiddle/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/bahmutov/cypress-fiddle/actions/workflows/ci.yml)
 
 > Generate Cypress tests live from HTML and JS
 
