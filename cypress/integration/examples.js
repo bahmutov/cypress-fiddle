@@ -10,7 +10,7 @@ export default {
         `,
         test: source`
           cy.get('#my-element')
-        `
+        `,
       },
       '.get().contains()': {
         skip: true,
@@ -30,7 +30,7 @@ export default {
           // because it only checks the first two LI elements
           // over and over - not noticing the 3rd LI
           cy.get('li').contains('third')
-        `
+        `,
       },
       '.get().should("contain")': {
         only: false,
@@ -47,7 +47,7 @@ export default {
             window.document.querySelector('ul').appendChild(newLi)
           }, 2000)
           cy.get('li').should('contain', 'third')
-        `
+        `,
       },
       '.get class selector by partial text': {
         only: false,
@@ -58,8 +58,8 @@ export default {
         test: source`
           cy.get('[class*=footer]').should('have.text', 'Footer')
             .and('have.class', 'small')
-        `
-      }
+        `,
+      },
     },
     'select input by label': {
       html: source`
@@ -79,7 +79,7 @@ export default {
         // select first the label by text
         inputByLabelText('My Text')
           .should('be.visible')
-      `
+      `,
     },
     'select input by label using custom command': {
       html: source`
@@ -94,7 +94,7 @@ export default {
         )
         cy.inputByLabelText('My Text')
           .should('be.visible')
-      `
+      `,
     },
     'within row scope': {
       html: source`
@@ -115,7 +115,7 @@ export default {
           cy.get('td').eq(3).should('contain', 'Active')
           cy.get('td').eq(4).should('contain', 'Edit').find('button').click()
         })
-      `
+      `,
     },
     'within row scope using contains': {
       html: source`
@@ -137,7 +137,7 @@ export default {
           cy.get('td').eq(3).contains('Active')
           cy.get('td').eq(4).contains('button', 'Edit').click()
         })
-      `
+      `,
     },
     'exact then inexact matches using jQuery and cypress-pipe': {
       html: source`
@@ -174,7 +174,7 @@ export default {
 
         containsExactThenInexactText('item').should('have.attr', 'id', 'exact')
         containsExactThenInexactText('my').should('have.attr', 'id', 'inexact')
-      `
+      `,
     },
     'contains exact label match': {
       html: source`
@@ -190,7 +190,7 @@ export default {
       test: source`
         cy.contains('label', /^Default rate$/)
           .should('have.attr', 'for', 'client_default_rate')
-      `
+      `,
     },
     'single a': {
       only: false,
@@ -200,7 +200,7 @@ export default {
       test: source`
         // yields "a"
         cy.get('a').should('have.id', 'single')
-      `
+      `,
     },
     'escapes tag': {
       only: false,
@@ -210,7 +210,7 @@ export default {
       test: source`
         // yields <a>...</a>
         cy.get('a').should('have.id', 'single')
-      `
+      `,
     },
     'several classes': {
       only: false,
@@ -222,7 +222,7 @@ export default {
       `,
       test: source`
         cy.get('.one.two.three.four').should('have.text', 'correct element')
-      `
+      `,
     },
     'button title attribute': {
       only: false,
@@ -237,7 +237,7 @@ export default {
         cy.get('button.btn-danger')     // gets button that satisfies next assertion
           .should('have.attr', 'title') // yields title attribute string
           .should('match', /^1123bad:/) // checks title
-      `
-    }
-  }
+      `,
+    },
+  },
 }

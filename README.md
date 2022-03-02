@@ -71,6 +71,7 @@ The next properties are NOT used by `cy.runExample` but are used by the `testExa
 
 - `skip` creates a skipped test with `it.skip`
 - `only` creates an exclusive test with `it.only`
+- `order` controls which widgets are shown in the map: 'test', 'html', 'live'
 
 ### Included scripts
 
