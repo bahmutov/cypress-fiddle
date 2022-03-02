@@ -6,6 +6,8 @@ const markdown = createMarkdown()
 
 Cypress.Commands.add('runExample', (options) => {
   const { name, description, commonHtml, html, test } = options
+  // the components to include on the page
+  const order = options.order || ['test', 'html', 'live']
   const testTitle =
     name ||
     // @ts-ignore
@@ -54,22 +56,39 @@ Cypress.Commands.add('runExample', (options) => {
   // because in that case we should not use "cy.within" or mount html
   const isTestingExternalSite = test.includes('cy.visit(')
   if (!isTestingExternalSite) {
-    const htmlSection = html
-      ? `<h2>HTML</h2>
-    <div id="html">
-    <pre><code class="html">${Cypress._.escape(html)}</code></pre>
-    </div>
-
-    <h2>Live HTML</h2>
-    <div id="live">
-    ${fullLiveHtml}
-    </div>
-    `
-      : `<div id="live"></div>
-    `
+    let htmlSection = ''
+    if (html) {
+      if (order.includes('html')) {
+        htmlSection = `
+        <h2>HTML</h2>
+        <div id="html">
+          <pre><code class="html">${Cypress._.escape(html)}</code></pre>
+        </div>
+      `
+      }
+      if (order.includes('live')) {
+        htmlSection += `
+        <h2>Live HTML</h2>
+        <div id="live">
+          <div id="live-html">
+            ${fullLiveHtml}
+          </div>
+        </div>
+      `
+      }
+    } else {
+      htmlSection = '<div id="live"></div>'
+    }
 
     // TODO: allow simple markup, properly convert it
     const descriptionHtml = markdown(description || '')
+
+    const testBlock = order.includes('test')
+      ? `
+          <h2>Test code</h2>
+          <pre><code class="javascript">${Cypress._.escape(test)}</code></pre>
+        `
+      : ''
 
     const appHtml = `
     <head>
@@ -87,10 +106,7 @@ Cypress.Commands.add('runExample', (options) => {
     <body>
       ${testTitle ? `<h1>${testTitle}</h1>` : ''}
       <div>${descriptionHtml}</div>
-      <h2>Test code</h2>
-
-      <pre><code class="javascript">${Cypress._.escape(test)}</code></pre>
-
+      ${testBlock}
       ${htmlSection}
     </body>
   `

@@ -2,6 +2,7 @@
 
 type HTML = string
 type JavaScript = string
+type FiddleComponent = 'html' | 'live' | 'test'
 
 /**
  * Options for creating a single test fiddle.
@@ -22,7 +23,7 @@ type JavaScript = string
   ```
  */
 interface RunExampleOptions {
-  name?: string,
+  name?: string
 
   /**
    * Optional description of the test. Supports Markdown via `nmd`
@@ -32,12 +33,14 @@ interface RunExampleOptions {
    * @memberof RunExampleOptions
    * @see https://github.com/Holixus/nano-markdown
    */
-  description?: string,
-  html?: HTML,
-  test: JavaScript,
+  description?: string
+  html?: HTML
+  commonHtml?: HTML
+  test: JavaScript
   // skip and only are exclusive - they cannot be both set to true
-  skip?: boolean,
+  skip?: boolean
   only?: boolean
+  order?: FiddleComponent[]
 }
 
 declare namespace Cypress {
