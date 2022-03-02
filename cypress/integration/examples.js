@@ -140,7 +140,6 @@ export default {
       `,
     },
     'exact then inexact matches using jQuery and cypress-pipe': {
-      only: true,
       html: source`
         <div id="example">
           <div id="inexact">my item</div>
