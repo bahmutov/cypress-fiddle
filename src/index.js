@@ -60,21 +60,21 @@ Cypress.Commands.add('runExample', (options) => {
     if (html) {
       if (order.includes('html')) {
         htmlSection = `
-        <h2>HTML</h2>
-        <div id="html">
-          <pre><code class="html">${Cypress._.escape(html)}</code></pre>
-        </div>
-      `
+          <h2>HTML</h2>
+          <div id="html">
+            <pre><code class="html">${Cypress._.escape(html)}</code></pre>
+          </div>
+        `
       }
       if (order.includes('live')) {
-        htmlSection += `
-        <h2>Live HTML</h2>
-        <div id="live">
-          <div id="live-html">
+        htmlSection +=
+          '\n' +
+          `
+          <h2>Live HTML</h2>
+          <div id="live">
             ${fullLiveHtml}
           </div>
-        </div>
-      `
+        `
       }
     } else {
       htmlSection = '<div id="live"></div>'
