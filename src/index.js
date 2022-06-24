@@ -5,7 +5,15 @@ const { createMarkdown } = require('safe-marked')
 const markdown = createMarkdown()
 
 Cypress.Commands.add('runExample', (options) => {
-  const { name, description, commonHtml, html, test } = options
+  const {
+    name,
+    description,
+    meta,
+    commonHtml,
+    html,
+    test,
+    fullDocument,
+  } = options
   // the components to include on the page
   const order = options.order || ['test', 'html', 'live']
   const testTitle =
@@ -20,6 +28,8 @@ Cypress.Commands.add('runExample', (options) => {
   const fullLiveHtml = commonHtml ? commonHtml + '\n' + html : html
 
   const fiddleOptions = Cypress._.defaults({}, Cypress.env('cypress-fiddle'), {
+    meta,
+    fullDocument,
     stylesheets: [],
     style: '',
     scripts: [],
@@ -34,6 +44,15 @@ Cypress.Commands.add('runExample', (options) => {
     stylesheetsHtml = fiddleOptions.stylesheets
       .map((url) => `<link rel="stylesheet" href="${url}">`)
       .join('\n')
+  }
+
+  // let the user specify additional meta tags
+  let metaHtml = ''
+  if (typeof fiddleOptions.meta === 'string') {
+    fiddleOptions.meta = [fiddleOptions.meta]
+  }
+  if (Array.isArray(fiddleOptions.meta)) {
+    metaHtml = fiddleOptions.meta.map((s) => s.trim()).join('\n')
   }
 
   // take a single script URL or a list
@@ -93,6 +112,7 @@ Cypress.Commands.add('runExample', (options) => {
     const appHtml = `
     <head>
       <meta charset="UTF-8">
+      ${metaHtml}
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/github.min.css">
       ${stylesheetsHtml}
       ${style}
@@ -131,15 +151,17 @@ Cypress.Commands.add('runExample', (options) => {
     // often takes a few extra seconds on the first pass
     const noLog = { log: false, timeout: 10000 }
 
-    if (test.includes('cy.visit(')) {
-      // really dummy way to see if the test code contains "cy.visit(...)"
-      // because in that case we should not use "cy.within" or mount html
+    if (fiddleOptions.fullDocument) {
+      // run "full" test
+      eval(test)
+    } else {
+      cy.get('#live', noLog).within(noLog, () => {
+        const insideFunction = '(function live() {\n' + test + '\n}).call(this)'
+        eval(insideFunction)
+      })
     }
-    cy.get('#live', noLog).within(noLog, () => {
-      const insideFunction = '(function live() {\n' + test + '\n}).call(this)'
-      eval(insideFunction)
-    })
   } else {
+    // testing an external site, just run the test code
     if (html) {
       throw new Error(
         'You have passed HTML block for this test, but also used cy.visit in the test, which one is it?',
