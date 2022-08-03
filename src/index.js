@@ -157,6 +157,13 @@ Cypress.Commands.add('runExample', (options) => {
     } else {
       cy.get('#live', noLog).within(noLog, () => {
         const insideFunction = '(function live() {\n' + test + '\n}).call(this)'
+        if (!window.onerror) {
+          // if the application throws an error, catch it and
+          // rethrow to fail the test
+          window.onerror = (err) => {
+            throw err
+          }
+        }
         eval(insideFunction)
       })
     }
