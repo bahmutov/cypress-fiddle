@@ -22,7 +22,7 @@ it('test with multiple html code blocks', () => {
 
 it('some html code blocks are live but hidden', () => {
   const test = {
-    description: 'This test has multiple HTML blocks',
+    description: 'This test has multiple HTML blocks but some are hidden',
     html: [
       source`
         <div id="greeting">Hello</div>

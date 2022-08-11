@@ -11,6 +11,7 @@ Cypress.Commands.add('runExample', (options) => {
     meta,
     commonHtml,
     html,
+    css,
     test,
     fullDocument,
   } = options
@@ -95,6 +96,9 @@ Cypress.Commands.add('runExample', (options) => {
   let style = ''
   if (typeof fiddleOptions.style === 'string' && fiddleOptions.style) {
     style = `<style>\n${fiddleOptions.style}\n</style>`
+  }
+  if (typeof css === 'string' && css) {
+    style += '\n' + `<style>\n${css}\n</style>`
   }
 
   // really dummy way to see if the test code contains "cy.visit(...)"

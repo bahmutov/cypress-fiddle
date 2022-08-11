@@ -362,6 +362,26 @@ If you have common HTML to load before the live HTML block, but do not want to s
 
 You can load styles and external CDN scripts using this approach.
 
+### CSS block
+
+You can apply CSS style to the HTML without showing it on the page
+
+```js
+const test = {
+  html: source`
+    <div id="greeting">Hello</div>
+  `,
+  css: source`
+    #greeting {
+      color: #f0f;
+      padding: 1rem;
+      font-weight: bold;
+    }
+  `,
+}
+cy.runExample(test)
+```
+
 ### Hiding fiddle in Markdown
 
 You can "hide" fiddle inside Markdown so the page _can test itself_. See [cypress/integration/hidden-fiddle.md](cypress/integration/hidden-fiddle.md) example.
