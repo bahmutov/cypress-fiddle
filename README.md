@@ -284,6 +284,23 @@ describe('Top', () => {
 })
 ```
 
+### Multiple HTML fragments
+
+You can pass multiple HTML blocks via an array
+
+    // single html code block
+    {
+      html: '<div id="greeting">Hello</div>'
+    }
+    // multiple html code blocks
+    // are concatenated
+    {
+      html: [
+        '<div id="greeting">Hello</div>',
+        '<div id="name">World</div>'
+      ]
+    }
+
 ### Live HTML
 
 You can include "live" html blocks in the fiddle - in that case they will become the test fragment.

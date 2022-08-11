@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 type HTML = string
+type HTMLS = HTML[]
 type JavaScript = string
 type FiddleComponent = 'html' | 'live' | 'test'
 
@@ -35,7 +36,7 @@ interface RunExampleOptions {
    */
   description?: string
   meta?: string
-  html?: HTML
+  html?: HTML | HTMLS
   commonHtml?: HTML
   test: JavaScript
   // skip and only are exclusive - they cannot be both set to true
