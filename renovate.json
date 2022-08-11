@@ -1,35 +1,27 @@
 {
-  "extends": [
-    "config:base"
-  ],
+  "extends": ["config:base"],
   "automerge": true,
   "major": {
     "automerge": false
   },
+  "minor": {
+    "automerge": true
+  },
   "prConcurrentLimit": 3,
   "prHourlyLimit": 2,
-  "schedule": [
-    "after 2am and before 3am on saturday"
-  ],
-  "updateNotScheduled": false,
-  "timezone": "America/New_York",
-  "lockFileMaintenance": {
-    "enabled": true
-  },
-  "separatePatchReleases": true,
-  "separateMultipleMajor": true,
+  "schedule": ["after 10pm and before 5am on every weekday", "every weekend"],
   "masterIssue": true,
-  "labels": [
-    "type: dependencies",
-    "renovate"
-  ],
+  "labels": ["type: dependencies", "renovate"],
   "packageRules": [
     {
-      "packageNames": [
-        "cypress"
+      "packagePatterns": ["*"],
+      "excludePackagePatterns": [
+        "cypress",
+        "debug",
+        "safe-marked",
+        "@cypress/browserify-preprocessor"
       ],
-      "groupName": "cypress",
-      "schedule": "before 2am"
+      "enabled": false
     }
   ]
 }
