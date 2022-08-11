@@ -1,6 +1,10 @@
 /// <reference types="cypress" />
 
-type HTML = string
+type HTMLBlock = {
+  source: string // HTML
+  hide?: boolean
+}
+type HTML = string | HTMLBlock
 type HTMLS = HTML[]
 type JavaScript = string
 type FiddleComponent = 'html' | 'live' | 'test'
