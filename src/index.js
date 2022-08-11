@@ -5,15 +5,9 @@ const { createMarkdown } = require('safe-marked')
 const markdown = createMarkdown()
 
 Cypress.Commands.add('runExample', (options) => {
-  const {
-    name,
-    description,
-    meta,
-    commonHtml,
-    html,
-    test,
-    fullDocument,
-  } = options
+  const { name, description, meta, commonHtml, test, fullDocument } = options
+  let { html } = options
+
   // the components to include on the page
   const order = options.order || ['test', 'html', 'live']
   const testTitle =
@@ -23,6 +17,16 @@ Cypress.Commands.add('runExample', (options) => {
 
   if (typeof test !== 'string' || !test) {
     expect(test, 'must have test source').to.be.a('string')
+  }
+
+  if (typeof html === 'string') {
+    // the user specified HTML block
+  } else if (Array.isArray(html)) {
+    let combinedHtml = ''
+    html.forEach((htmlPart) => {
+      combinedHtml += htmlPart + '\n'
+    })
+    html = combinedHtml
   }
 
   const fullLiveHtml = commonHtml ? commonHtml + '\n' + html : html
