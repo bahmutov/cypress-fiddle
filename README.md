@@ -301,6 +301,24 @@ You can pass multiple HTML blocks via an array
       ]
     }
 
+### Hide HTML fragment
+
+You can hide an HTML fragment to avoid including it in the HTML source shown on the page. The hidden HTML is still included in the live HTML block. Each code block must be an object with the `source` property and `hide: true|false` property.
+
+    html: [
+      source`
+        <div id="greeting">Hello</div>
+      `,
+      {
+        source: source`
+          <div id="name">World</div>
+        `,
+        // do not show the source code this html block
+        // but still include it in the live html app
+        hide: true,
+      },
+    ]
+
 ### Live HTML
 
 You can include "live" html blocks in the fiddle - in that case they will become the test fragment.

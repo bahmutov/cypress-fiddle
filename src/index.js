@@ -5,8 +5,18 @@ const { createMarkdown } = require('safe-marked')
 const markdown = createMarkdown()
 
 Cypress.Commands.add('runExample', (options) => {
-  const { name, description, meta, commonHtml, test, fullDocument } = options
-  let { html } = options
+  const {
+    name,
+    description,
+    meta,
+    commonHtml,
+    html,
+    test,
+    fullDocument,
+  } = options
+  // we will show only some html, but run it all
+  let htmlSource = ''
+  let liveHtml = ''
 
   // the components to include on the page
   const order = options.order || ['test', 'html', 'live']
@@ -21,15 +31,27 @@ Cypress.Commands.add('runExample', (options) => {
 
   if (typeof html === 'string') {
     // the user specified HTML block
+    htmlSource = html
+    liveHtml = html
   } else if (Array.isArray(html)) {
-    let combinedHtml = ''
     html.forEach((htmlPart) => {
-      combinedHtml += htmlPart + '\n'
+      if (typeof htmlPart === 'string') {
+        htmlSource += htmlPart + '\n'
+        liveHtml += htmlPart + '\n'
+      } else {
+        // the html part is an object
+        if (typeof htmlPart.source !== 'string') {
+          throw new Error('Missing html source property')
+        }
+        liveHtml += htmlPart.source + '\n'
+        if (!htmlPart.hide) {
+          htmlSource += htmlPart.source + '\n'
+        }
+      }
     })
-    html = combinedHtml
   }
 
-  const fullLiveHtml = commonHtml ? commonHtml + '\n' + html : html
+  const fullLiveHtml = commonHtml ? commonHtml + '\n' + liveHtml : liveHtml
 
   const fiddleOptions = Cypress._.defaults({}, Cypress.env('cypress-fiddle'), {
     meta,
@@ -80,12 +102,12 @@ Cypress.Commands.add('runExample', (options) => {
   const isTestingExternalSite = test.includes('cy.visit(')
   if (!isTestingExternalSite) {
     let htmlSection = ''
-    if (html) {
+    if (htmlSource) {
       if (order.includes('html')) {
         htmlSection = `
           <h2>HTML</h2>
           <div id="html">
-            <pre><code class="html">${Cypress._.escape(html)}</code></pre>
+            <pre><code class="html">${Cypress._.escape(htmlSource)}</code></pre>
           </div>
         `
       }
