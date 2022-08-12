@@ -101,6 +101,11 @@ Cypress.Commands.add('runExample', (options) => {
     style += '\n' + `<style>\n${css}\n</style>`
   }
 
+  // console.log('order', order)
+  // console.log('htmlSource', htmlSource)
+  // console.log('liveHTML', liveHtml)
+  // console.log('fullLiveHtml', fullLiveHtml)
+
   // really dummy way to see if the test code contains "cy.visit(...)"
   // because in that case we should not use "cy.within" or mount html
   const isTestingExternalSite = test.includes('cy.visit(')
