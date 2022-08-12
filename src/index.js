@@ -106,8 +106,8 @@ Cypress.Commands.add('runExample', (options) => {
   const isTestingExternalSite = test.includes('cy.visit(')
   if (!isTestingExternalSite) {
     let htmlSection = ''
-    if (htmlSource) {
-      if (order.includes('html')) {
+    if (fullLiveHtml) {
+      if (order.includes('html') && htmlSource) {
         htmlSection = `
           <h2>HTML</h2>
           <div id="html">
