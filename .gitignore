@@ -1,5 +1,5 @@
 node_modules/
 cypress/videos
 cypress/screenshots
-cypress/integration/text.js
-cypress/integration/add-list-item.js
+cypress/e2e/text.js
+cypress/e2e/add-list-item.js

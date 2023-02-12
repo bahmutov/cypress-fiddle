@@ -29,7 +29,7 @@ import '@bahmutov/cypress-fiddle'
 
 You can take an object with an `html` property containing HTML and a `test` property containing Cypress commands and run the tests.
 
-For example in the `cypress/integration/spec.js` file:
+For example in the `cypress/e2e/spec.js` file:
 
 ```js
 // loads TypeScript definition for Cypress
@@ -206,7 +206,7 @@ testExamples(suite)
 
 ![Tree of tests](images/tree.png)
 
-Find more examples in [cypress/integration](cypress/integration) folder.
+Find more examples in [cypress/e2e](cypress/e2e) folder.
 
 ### Markdown
 
@@ -407,7 +407,7 @@ cy.runExample(test)
 
 ### Hiding fiddle in Markdown
 
-You can "hide" fiddle inside Markdown so the page _can test itself_. See [cypress/integration/hidden-fiddle.md](cypress/integration/hidden-fiddle.md) example.
+You can "hide" fiddle inside Markdown so the page _can test itself_. See [cypress/e2e/hidden-fiddle.md](cypress/e2e/hidden-fiddle.md) example.
 
 **Markdown**
 
