@@ -2,18 +2,21 @@ name: ci
 on: push
 jobs:
   test:
+    # https://github.com/bahmutov/cypress-workflows
+    uses: bahmutov/cypress-workflows/.github/workflows/split.yml@v1
+    with:
+      n: 3
+
+  release:
+    if: github.ref == 'refs/heads/main'
+    needs: 'test'
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v3
 
-      - name: Run tests 🧪
-        # https://github.com/cypress-io/github-action
-        uses: cypress-io/github-action@v5
-
       - name: Semantic Release 🚀
         uses: cycjimmy/semantic-release-action@v3
-        if: github.ref == 'refs/heads/main'
         with:
           branch: main
         env:
