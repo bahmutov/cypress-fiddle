@@ -269,7 +269,7 @@ const createTest = (name, test) => {
 
 /**
  * Processes a tree of test definitions, each with HTML and JS
- * and makes each into a live test. See examples in "integration" folder.
+ * and makes each into a live test. See examples in "e2e" folder.
  */
 const testExamples = (maybeTest) => {
   // for debugging
