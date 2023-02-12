@@ -199,11 +199,19 @@ Cypress.Commands.add('runExample', (options) => {
 
     // compiling the Markdown to get the playground
     // often takes a few extra seconds on the first pass
-    const noLog = { log: false, timeout: 10000 }
+    const noLog = { log: false, timeout: 10_000 }
 
     if (fiddleOptions.fullDocument) {
-      // run "full" test
-      eval(test)
+      // run "full" test once the injected HTML is ready
+      cy.get('body', { log: false })
+        .should(($el) => {
+          if (!$el.length) {
+            throw new Error('Document is not ready yet')
+          }
+        })
+        .then(() => {
+          eval(test)
+        })
     } else {
       cy.get('#live', noLog).within(noLog, () => {
         const insideFunction = '(function live() {\n' + test + '\n}).call(this)'
