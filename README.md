@@ -362,6 +362,29 @@ If you have common HTML to load before the live HTML block, but do not want to s
 
 You can load styles and external CDN scripts using this approach.
 
+### Hide JS block
+
+You can pass `testShown` in the fiddle object to show that code (or no JS block at all) in the HTML page
+
+```js
+const test = {
+  html: '...',
+  test: '...',
+  // hide the test block completely
+  testShown: null,
+}
+```
+
+Show something else to the user
+
+```js
+const test = {
+  html: '...',
+  test: '...',
+  testShown: '// test code snippet',
+}
+```
+
 ### CSS block
 
 You can apply CSS style to the HTML without showing it on the page

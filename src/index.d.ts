@@ -45,6 +45,10 @@ interface RunExampleOptions {
   css?: CSS
   commonHtml?: HTML
   test: JavaScript
+  /**
+   * if this field is present, it should be the JS to show to the user
+   */
+  testShown?: JavaScript | null
   // skip and only are exclusive - they cannot be both set to true
   skip?: boolean
   only?: boolean

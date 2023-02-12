@@ -137,12 +137,27 @@ Cypress.Commands.add('runExample', (options) => {
     // TODO: allow simple markup, properly convert it
     const descriptionHtml = markdown(description || '')
 
-    const testBlock = order.includes('test')
-      ? `
+    let testBlock = ''
+    if (order.includes('test')) {
+      if ('testShown' in options) {
+        if (options.testShown) {
+          testBlock = `
+            <h2>Test code</h2>
+            <pre id="test-code"><code class="javascript">${Cypress._.escape(
+              options.testShown,
+            )}</code></pre>
+          `
+        }
+        // else do not show any JavaScript code
+      } else {
+        testBlock = `
           <h2>Test code</h2>
-          <pre><code class="javascript">${Cypress._.escape(test)}</code></pre>
+          <pre id="test-code"><code class="javascript">${Cypress._.escape(
+            test,
+          )}</code></pre>
         `
-      : ''
+      }
+    }
 
     const appHtml = `
     <head>
