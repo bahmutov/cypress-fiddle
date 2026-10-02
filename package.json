@@ -26,12 +26,12 @@
   "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "cypress": "12.17.4",
+    "cypress": "16.1.1",
     "cypress-expect": "2.5.3",
     "cypress-pipe": "1.7.0",
     "cypress-split": "^1.2.0",
-    "prettier": "2.2.1",
-    "semantic-release": "^19.0.2"
+    "prettier": "3.9.9",
+    "semantic-release": "^25.0.9"
   },
   "dependencies": {
     "@cypress/browserify-preprocessor": "3.0.2",
