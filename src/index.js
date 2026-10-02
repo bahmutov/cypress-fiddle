@@ -54,13 +54,17 @@ Cypress.Commands.add('runExample', (options) => {
 
   const fullLiveHtml = commonHtml ? commonHtml + '\n' + liveHtml : liveHtml
 
-  const fiddleOptions = Cypress._.defaults({}, Cypress.env('cypress-fiddle'), {
-    meta,
-    fullDocument,
-    stylesheets: [],
-    style: '',
-    scripts: [],
-  })
+  const fiddleOptions = Cypress._.defaults(
+    {},
+    Cypress.expose('cypress-fiddle'),
+    {
+      meta,
+      fullDocument,
+      stylesheets: [],
+      style: '',
+      scripts: [],
+    },
+  )
 
   // take a single stylesheet URL or a list
   let stylesheetsHtml = ''
